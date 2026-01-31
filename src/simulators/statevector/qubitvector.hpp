@@ -920,17 +920,13 @@ QubitVector<data_t>::convert(const cvector_t<double> &v) const {
 
 template <typename data_t>
 void QubitVector<data_t>::set_num_qubits(size_t num_qubits) {
-
   free_checkpoint();
   if (num_qubits != num_qubits_) {
-    free_mem();
+    data_size_ = BITS[num_qubits];
+    allocate_mem(data_size_);
+    num_qubits_ = num_qubits;
   }
-  data_size_ = BITS[num_qubits];
-  allocate_mem(data_size_);
-
-  num_qubits_ = num_qubits;
 }
-
 template <typename data_t>
 void QubitVector<data_t>::free_mem() {
   if (data_) {
